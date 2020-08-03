@@ -1,0 +1,22 @@
+{
+  "level_one_str": "foo",
+  "level_one_bool": true,
+  "level_one_int": 1,
+  "level_one_dbl": 1.111,
+  "level_one_obj": {
+    "level_two_str": "bar",
+    "level_two_bool": false,
+    "level_two_int": 2,
+    "level_two_dbl": 2.222,
+    "level_two_obj": {
+      "level_three_str": "baz",
+      "level_three_bool": true,
+      "level_three_int": 3,
+      "level_three_dbl": 3.333
+    }
+  },
+  "logger_service": {
+    "host": "127.0.0.1",
+    "port": 3000
+  }
+}

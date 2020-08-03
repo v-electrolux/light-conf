@@ -1,0 +1,34 @@
+{
+  "name": "light-conf",
+  "version": "0.0.1",
+  "description": "lightweight config file and environment variable reader",
+  "keywords": [
+    "env",
+    "vars",
+    "cfg",
+    "reader",
+    "config"
+  ],
+  "homepage": "https://github.com/v-electrolux/light-conf#readme",
+  "bugs": {
+    "url": "https://github.com/v-electrolux/light-conf/issues"
+  },
+  "license": "ISC",
+  "author": "v-electrolux",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/v-electrolux/light-conf.git"
+  },
+  "scripts": {
+    "test": "mocha tests/test.js"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "mocha": "8.1.0",
+    "nyc": "15.1.0"
+  }
+}
