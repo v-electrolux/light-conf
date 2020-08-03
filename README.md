@@ -1,4 +1,4 @@
-# light-conf [![NPM version](https://badge.fury.io/js/light-conf.svg)](http://badge.fury.io/js/light-conf) [![Build Status](https://travis-ci.com/v-electrolux/light-conf.svg?branch=master)](https://travis-ci.com/v-electrolux/light-conf) [![Code Coverage](https://badgen.now.sh/codecov/c/github/v-electrolux/light-conf)](https://badgen.now.sh/codecov/c/github/v-electrolux/light-conf) [![install size](https://packagephobia.com/badge?p=light-conf)](https://packagephobia.com/result?p=light-conf) 
+# light-conf [![NPM version](https://badge.fury.io/js/light-conf.svg)](https://badge.fury.io/js/light-conf) [![Build Status](https://travis-ci.com/v-electrolux/light-conf.svg?branch=master)](https://travis-ci.com/v-electrolux/light-conf) [![Code Coverage](https://badgen.now.sh/codecov/c/github/v-electrolux/light-conf)](https://badgen.now.sh/codecov/c/github/v-electrolux/light-conf) [![install size](https://packagephobia.com/badge?p=light-conf)](https://packagephobia.com/result?p=light-conf) 
 
 A very tiny package (zero dependencies) that allows you to read json configuration file and environment variables
 
