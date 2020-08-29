@@ -18,6 +18,8 @@ describe("should make positive tests", function () {
             "level_one_obj_level_two_bool": "boolean",
             "level_one_obj_level_two_obj_level_three_bool": "boolean",
             "level_one_int": "integer",
+            "level_one_try_int1": "try_integer",
+            "level_one_try_int2": "try_integer",
             "level_one_obj_level_two_int": "integer",
             "level_one_obj_level_two_obj_level_three_int": "integer",
             "level_one_dbl": "double",
@@ -29,6 +31,8 @@ describe("should make positive tests", function () {
             "PREFIX_LEVEL_ONE_OBJ_LEVEL_TWO_STR": "this value should overwrite bar value",
             "PREFIX_LEVEL_ONE_OBJ_LEVEL_TWO_STR_ENV": "this value should not overwrite anything",
             "PREFIX_LEVEL_ONE_BOOL": "false",
+            "PREFIX_LEVEL_ONE_TRY_INT1": "12345",
+            "PREFIX_LEVEL_ONE_TRY_INT2": "year",
             "PREFIX_LEVEL_ONE_INT": "11",
             "PREFIX_LEVEL_ONE_DBL": "11.111",
         };
@@ -53,6 +57,30 @@ describe("should make positive tests", function () {
         );
     });
 
+    it("should get all values", function (done) {
+        expect(testConfig.get()).to.be.eql({
+            "level_one_bool": false,
+            "level_one_dbl": 11.111,
+            "level_one_int": 11,
+            "level_one_obj_level_two_bool": false,
+            "level_one_obj_level_two_dbl": 2.222,
+            "level_one_obj_level_two_int": 2,
+            "level_one_obj_level_two_obj_level_three_bool": true,
+            "level_one_obj_level_two_obj_level_three_dbl": 3.333,
+            "level_one_obj_level_two_obj_level_three_int": 3,
+            "level_one_obj_level_two_obj_level_three_str": "baz",
+            "level_one_obj_level_two_obj_level_three_str_default": "this value should not be overwritten",
+            "level_one_obj_level_two_str": "this value should overwrite bar value",
+            "level_one_obj_level_two_str_env": "this value should not overwrite anything",
+            "level_one_str": "foo",
+            "level_one_str_default": "this value should not be overwritten",
+            "level_one_try_int1": 12345,
+            "level_one_try_int2": "year",
+            "logger_service": "127.0.0.1:3000"
+        });
+        done();
+    });
+
     it("should get string value from config file", function (done) {
         expect(testConfig.get("level_one_str")).to.be.equal("foo");
         done();
@@ -70,6 +98,16 @@ describe("should make positive tests", function () {
 
     it("should get int overwritten value from env", function (done) {
         expect(testConfig.get("level_one_int")).to.be.equal(11);
+        done();
+    });
+
+    it("should get try int 1 value from env", function (done) {
+        expect(testConfig.get("level_one_try_int1")).to.be.equal(12345);
+        done();
+    });
+
+    it("should get try int 2 value from env", function (done) {
+        expect(testConfig.get("level_one_try_int2")).to.be.equal("year");
         done();
     });
 
@@ -170,6 +208,7 @@ describe("should make negative tests", function () {
             "level_one_obj_level_two_bool": "boolean",
             "level_one_obj_level_two_obj_level_three_bool": "boolean",
             "level_one_int": "integer",
+            "level_one_try_int": "try_integer",
             "level_one_obj_level_two_int": "integer",
             "level_one_obj_level_two_obj_level_three_int": "integer",
             "level_one_dbl": "double",
@@ -182,6 +221,7 @@ describe("should make negative tests", function () {
             "PREFIX_LEVEL_ONE_OBJ_LEVEL_TWO_STR_ENV": "this value should not overwrite anything",
             "PREFIX_LEVEL_ONE_BOOL": "false",
             "PREFIX_LEVEL_ONE_INT": "11",
+            "PREFIX_LEVEL_ONE_TRY_INT": "11",
             "PREFIX_LEVEL_ONE_DBL": "11.111",
         };
 
@@ -334,6 +374,25 @@ describe("should make negative tests", function () {
             );
         }
         expect(typeMismatchFunction).to.throw(Error, "can not cast \"number\" type to \"boolean\" type");
+        done();
+    });
+
+    it("should get throw error in conversion boolean to try integer", function (done) {
+        const keyTypeMapping = {
+            "level_one_bool": "try_integer",
+        };
+
+        function typeMismatchFunction() {
+            new ConfigManager(
+                {},
+                path.join(__dirname, "tests.json"),
+                {},
+                "PREFIX_",
+                undefined,
+                keyTypeMapping,
+            );
+        }
+        expect(typeMismatchFunction).to.throw(Error, "can not cast \"boolean\" type to \"try_integer\" type");
         done();
     });
 });

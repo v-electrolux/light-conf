@@ -48,6 +48,17 @@ class ConfigManager {
                             }
                             break;
 
+                        case "try_integer":
+                            if (typeof stringValue === "string") {
+                                const parsedIntValue = parseInt(stringValue);
+                                configContent[key] = !isNaN(parsedIntValue)
+                                    ? parsedIntValue
+                                    : stringValue;
+                            } else if (typeof stringValue !== "number") {
+                                throw new Error("can not cast \"" + typeof stringValue + "\" type to \"try_integer\" type");
+                            }
+                            break;
+
                         case "double":
                             if (typeof stringValue === "string") {
                                 configContent[key] = parseFloat(stringValue);
@@ -63,7 +74,11 @@ class ConfigManager {
     }
 
     get(configKey) {
-        return this.config[configKey];
+        if (configKey) {
+            return this.config[configKey];
+        } else {
+            return Object.assign({}, this.config);
+        }
     }
 }
 
