@@ -41,11 +41,13 @@ const configDefaultKeyValues = {
 //const configFileContent = {
 //    "key1": false,
 //    "key2": 20,
+//    "key6": ["value0"],
 //}
 
 process.env.EP_KEY1 = "true";
 process.env.EP_KEY4 = "120000";
 process.env.EP_KEY5 = "year";
+process.env.EP_KEY6 = "value1;value2";
 function backwardCompatibilityFunction(configFileContent) {
     // do staff with config for older config files
     return configFileContent;
@@ -56,6 +58,7 @@ const keyTypeMapping = {
     "key3": "double",
     "key4": "try_integer",
     "key5": "try_integer",
+    "key6": "array",
 };
 
 const config = new ConfigManager(
@@ -91,6 +94,11 @@ console.log(
     config.get("key5")
 );
 // should print year (string type)
+
+console.log(
+    config.get("key6")
+);
+// should print ["value1", "value2"] (stringified array type)
 
 console.log(
     config.get()

@@ -18,5 +18,13 @@
   "logger_service": {
     "host": "127.0.0.1",
     "port": 3000
-  }
+  },
+  "level_one_array1": [
+    "val1",
+    "val2",
+    "val3"
+  ],
+  "level_one_array2": [
+    "val1"
+  ]
 }

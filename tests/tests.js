@@ -25,6 +25,9 @@ describe("should make positive tests", function () {
             "level_one_dbl": "double",
             "level_one_obj_level_two_dbl": "double",
             "level_one_obj_level_two_obj_level_three_dbl": "double",
+            "level_one_array1": "array",
+            "level_one_array2": "array",
+            "level_one_array3": "array",
         };
 
         const environment = {
@@ -35,6 +38,8 @@ describe("should make positive tests", function () {
             "PREFIX_LEVEL_ONE_TRY_INT2": "year",
             "PREFIX_LEVEL_ONE_INT": "11",
             "PREFIX_LEVEL_ONE_DBL": "11.111",
+            "PREFIX_LEVEL_ONE_ARRAY2": "val2",
+            "PREFIX_LEVEL_ONE_ARRAY3": "val0;val1;val3",
         };
 
         function backwardCompatibilityFunction(configFileContent) {
@@ -76,7 +81,20 @@ describe("should make positive tests", function () {
             "level_one_str_default": "this value should not be overwritten",
             "level_one_try_int1": 12345,
             "level_one_try_int2": "year",
-            "logger_service": "127.0.0.1:3000"
+            "logger_service": "127.0.0.1:3000",
+            "level_one_array1": [
+                "val1",
+                "val2",
+                "val3"
+            ],
+            "level_one_array2": [
+                "val2"
+            ],
+            "level_one_array3": [
+                "val0",
+                "val1",
+                "val3"
+            ]
         });
         done();
     });
@@ -188,6 +206,21 @@ describe("should make positive tests", function () {
 
     it("should get logger service url value from config file", function (done) {
         expect(testConfig.get("logger_service")).to.be.equal("127.0.0.1:3000");
+        done();
+    });
+
+    it("should get array value from config file", function (done) {
+        expect(testConfig.get("level_one_array1")).to.be.eql(["val1", "val2", "val3"]);
+        done();
+    });
+
+    it("should get array overwritten value from env", function (done) {
+        expect(testConfig.get("level_one_array2")).to.be.eql(["val2"]);
+        done();
+    });
+
+    it("should get array value from env", function (done) {
+        expect(testConfig.get("level_one_array3")).to.be.eql(["val0", "val1", "val3"]);
         done();
     });
 });
@@ -393,6 +426,25 @@ describe("should make negative tests", function () {
             );
         }
         expect(typeMismatchFunction).to.throw(Error, "can not cast \"boolean\" type to \"try_integer\" type");
+        done();
+    });
+
+    it("should get throw error in conversion boolean to array", function (done) {
+        const keyTypeMapping = {
+            "level_one_bool": "array",
+        };
+
+        function typeMismatchFunction() {
+            new ConfigManager(
+                {},
+                path.join(__dirname, "tests.json"),
+                {},
+                "PREFIX_",
+                undefined,
+                keyTypeMapping,
+            );
+        }
+        expect(typeMismatchFunction).to.throw(Error, "can not cast \"boolean\" type to \"array\" type");
         done();
     });
 });

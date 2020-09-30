@@ -66,6 +66,14 @@ class ConfigManager {
                                 throw new Error("can not cast \"" + typeof stringValue + "\" type to \"double\" type");
                             }
                             break;
+
+                        case "array":
+                            if (typeof stringValue === "string") {
+                                configContent[key] = stringValue.split(";");
+                            } else if (!Array.isArray(stringValue)) {
+                                throw new Error("can not cast \"" + typeof stringValue + "\" type to \"array\" type");
+                            }
+                            break;
                     }
                 }
             }
